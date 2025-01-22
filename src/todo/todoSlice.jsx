@@ -18,16 +18,16 @@ export const todoSlice = createSlice({
         updateTask:(state,action)=>{
             state.todos.map((todo)=>{
             // const updatedText = todo.text;
-           if(todo.id===action.payload){
-            console.log("text",state,"action",action.payload,"i/p");
-        //  todo.text =action.payload
+           if(todo.id===action.payload.id){
+            console.log(action,"act");
+        //  todo.text =action.payload.text
         //   const updatedText = todo.text;
-        // return {
-        //     ...todo,
-        //     text:action.payload,
-        // };  
+        return {
+            ...todo,
+            text:action.payload.text,
+        };  
          } 
-        //  return todo                         
+         return todo                        
             })
         },
         removeTask:(state,action)=>{

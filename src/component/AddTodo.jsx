@@ -17,7 +17,7 @@ const AddTodo = ({editData,setEditData,input,setInput}) => {
   const addTodoHandlerUpdate = (e)=>{
      e.preventDefault()
     dispatch(updateTask(input))
-    console.log(input,"i/p");
+    // console.log(input,"i/p");
     setInput('')
   }
 
@@ -43,7 +43,7 @@ const AddTodo = ({editData,setEditData,input,setInput}) => {
       onChange={(e) => setInput(e.target.value)}
     />
 
-  <button type='submit'onClick={()=>setEditData(false)} >Update</button>
+  <button type='submit' >Update</button>
 
   
   </form>
