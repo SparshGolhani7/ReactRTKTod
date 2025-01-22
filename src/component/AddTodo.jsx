@@ -2,20 +2,22 @@ import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
 import {addTask,updateTask} from '../todo/todoSlice'
 
-const AddTodo = () => {
-  const [input,setInput] = useState("")
-  const [editData,setEditData] = useState(false)
+const AddTodo = ({editData,setEditData,input,setInput}) => {
+  
+ 
   const dispatch = useDispatch();
 
   const addTodoHandler = (e)=>{
     e.preventDefault()
     dispatch(addTask(input))
+    console.log(input,"o/p");
     setInput('')
   }
 
   const addTodoHandlerUpdate = (e)=>{
-    e.preventDefault()
+     e.preventDefault()
     dispatch(updateTask(input))
+    console.log(input,"i/p");
     setInput('')
   }
 
@@ -41,7 +43,7 @@ const AddTodo = () => {
       onChange={(e) => setInput(e.target.value)}
     />
 
-  <button type='submit'>Update</button>
+  <button type='submit'onClick={()=>setEditData(false)} >Update</button>
 
   
   </form>

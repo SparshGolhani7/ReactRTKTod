@@ -19,11 +19,12 @@ export const todoSlice = createSlice({
             state.todos.map((todo)=>{
             // const updatedText = todo.text;
            if(todo.id===action.payload){
-         console.log("text",todo.text);
-         todo.text ="sg"
+            console.log("text",state,"action",action.payload,"i/p");
+        //  todo.text =action.payload
+        //   const updatedText = todo.text;
         // return {
         //     ...todo,
-        //     [updatedText]:"sg",
+        //     text:action.payload,
         // };  
          } 
         //  return todo                         
