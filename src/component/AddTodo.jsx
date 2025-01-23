@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {addTask,updateTask} from '../todo/todoSlice'
 
-const AddTodo = ({editData,setEditData,input,setInput}) => {
-  
- 
+import { removeTask } from '../todo/todoSlice'
+import { MdDelete } from "react-icons/md";
+
+const AddTodo = () => {
+  const [input,setInput] = useState("")
+  const [editData,setEditData] = useState(false)
+  const [inputId,setInputId]=useState(null)
+  const todos = useSelector((state)=>state.todos);
   const dispatch = useDispatch();
 
   const addTodoHandler = (e)=>{
@@ -16,12 +21,19 @@ const AddTodo = ({editData,setEditData,input,setInput}) => {
 
   const addTodoHandlerUpdate = (e)=>{
      e.preventDefault()
-    dispatch(updateTask(input))
+    dispatch(updateTask({id:inputId,text:input}))
     // console.log(input,"i/p");
     setInput('')
+     setEditData(false)
   }
 
-  
+  const updateData =(todo)=>{
+    // dispatch(updateTask(todo.id));
+    setEditData(true);
+    setInput(todo.text);
+    setInputId(todo.id)
+  }
+
   return (
     <>
     {!editData?(<form onSubmit={addTodoHandler} >
@@ -31,10 +43,7 @@ const AddTodo = ({editData,setEditData,input,setInput}) => {
       value={input}
       onChange={(e) => setInput(e.target.value)}
     />
-
   <button type='submit'>Add todo</button>
-
-  
   </form>):(
     <form onSubmit={addTodoHandlerUpdate} >
     <input
@@ -42,17 +51,29 @@ const AddTodo = ({editData,setEditData,input,setInput}) => {
       value={input}
       onChange={(e) => setInput(e.target.value)}
     />
-
   <button type='submit' >Update</button>
-
-  
   </form>
   )}
-    
-
+   <div>TASKS</div>
+      {todos.map((todo)=>(
+        
+        <li id={todo.id}> 
+        <span>{todo.text}
+            </span> 
+            <button  onClick={()=>updateData(todo)}>Update</button>
+            <button onClick={()=>dispatch(removeTask(todo.id))} style={{color:"red"}}><MdDelete /></button>         
+             </li>
+))}    
   </>
 )
   
 }
 
 export default AddTodo
+
+
+
+
+
+
+
