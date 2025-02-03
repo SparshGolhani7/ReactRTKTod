@@ -1,8 +1,10 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-    todos:[{id:1,text:"First Task"}],
-    updateId:null,
+    // todos:[{id:1,text:"First Task"}],
+    
+    todos:JSON.parse(localStorage.getItem("todoTask"))||[],
+    // updateId:null,
 };
 
 export const todoSlice = createSlice({
@@ -15,6 +17,7 @@ export const todoSlice = createSlice({
                 text:action.payload,
             }
             state.todos.push(todo);
+            localStorage.setItem("todoTask",JSON.stringify(state.todos))
         },
         
 
@@ -40,8 +43,10 @@ export const todoSlice = createSlice({
            const taskToUpdate= state.todos.find((todo)=>todo.id===id)
            if(taskToUpdate){
             taskToUpdate.text =text;
-            console.log("jsj",taskToUpdate.text);
+            console.log("updateTask",taskToUpdate.text);
            }
+
+           localStorage.setItem("todoTask",JSON.stringify(state.todos))
             
          } ,
 
@@ -61,13 +66,23 @@ export const todoSlice = createSlice({
         // },
         removeTask:(state,action)=>{
         //    state.todos = state.todos.filter((todo)=>todo.id !==action.payload)
-       return{
+    //    return{
+    //     ...state,
+    //     todos:state.todos.filter((todo)=>todo.id !==action.payload)
+    //    // localStorage.setItem("todoTask",JSON.stringify(state.todos))
+    //    }
+
+    const updatedState = {
         ...state,
         todos:state.todos.filter((todo)=>todo.id !==action.payload)
-       } 
-
-        },
+    };
+    localStorage.setItem("todoTask",JSON.stringify(updatedState.todos));
+    return updatedState;
+          },
+        
     },
+    
+
 
 });
 

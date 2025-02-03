@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import {addTask,updateTask} from '../todo/todoSlice'
 
@@ -9,8 +9,14 @@ const AddTodo = () => {
   const [input,setInput] = useState("")
   const [editData,setEditData] = useState(false)
   const [inputId,setInputId]=useState(null)
-  const todos = useSelector((state)=>state.todos);
+  
   const dispatch = useDispatch();
+
+
+  // let todos = JSON.parse(localStorage.getItem("todoTask"))||[];
+  // console.log(todos,"tosos");
+   let todos = useSelector((state)=>state.todos);
+
 
   const addTodoHandler = (e)=>{
     e.preventDefault()
@@ -71,7 +77,7 @@ const AddTodo = () => {
 
 export default AddTodo
 
-
+// wil change the  last commit
 
 
 
